@@ -19,7 +19,7 @@ namespace BugTrackingSystem.Controllers
             _context = context;
             _userManager = userManager;
         }
-        [HttpPost("api/project")]
+        [HttpPost("api/projects")]
         public async Task<IActionResult> CreateProject([FromBody] CreateProjectDto createProjectDto)
         {
             if (createProjectDto == null || string.IsNullOrEmpty(createProjectDto.Name) || string.IsNullOrEmpty(createProjectDto.Description))
@@ -37,7 +37,7 @@ namespace BugTrackingSystem.Controllers
             {
                 Name = createProjectDto.Name,
                 Description = createProjectDto.Description,
-                CreatedById = currentUser.Id,
+                ApplicationUserId = currentUser.Id,
             };
 
             try
@@ -71,7 +71,7 @@ namespace BugTrackingSystem.Controllers
 
             // Fetch projects based on the current user's involvement (e.g., working on or watching projects)
             var projects = _context.Projects
-                .Where(p => p.CreatedById == currentUser.Id)  // Filter by the current user's ID
+                .Where(p => p.ApplicationUserId == currentUser.Id)  // Filter by the current user's ID
                 .ToList();
 
             return Ok(projects);
