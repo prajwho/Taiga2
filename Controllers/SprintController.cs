@@ -18,7 +18,7 @@ namespace BugTrackingSystem.Controllers
         }
 
         // Create a new sprint
-        [HttpPost("api/sprint")]
+        [HttpPost("api/sprints")]
         public async Task<IActionResult> CreateSprint([FromBody] CreateSprintDto dto)
         {
             if (dto == null || dto.StartDate == DateTime.MinValue || dto.EndDate == DateTime.MinValue || dto.ProjectId <= 0)
@@ -43,6 +43,21 @@ namespace BugTrackingSystem.Controllers
             {
                 return StatusCode(500, $"Internal server error: {ex.Message}");
             }
+        }
+        // Delete a sprint
+        [HttpDelete("api/sprint/{id}")]
+        public async Task<IActionResult> DeleteSprint(int id)
+        {
+            var sprint = await _context.Sprints.FindAsync(id);
+            if (sprint == null)
+            {
+                return NotFound();
+            }
+
+            _context.Sprints.Remove(sprint);
+            await _context.SaveChangesAsync();
+
+            return NoContent(); // Return status 204 (No Content) after deletion
         }
 
         // Get sprint by id

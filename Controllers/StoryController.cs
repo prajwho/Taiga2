@@ -1,13 +1,12 @@
 ﻿using BugTrackingSystem.Data;
-using BugTrackingSystem.Dto;
 using BugTrackingSystem.Models;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace BugTrackingSystem.Controllers
 {
     [ApiController]
+    [Route("api/[controller]")]
     public class StoryController : ControllerBase
     {
         private readonly ApplicationDbContext _context;
@@ -17,27 +16,20 @@ namespace BugTrackingSystem.Controllers
             _context = context;
         }
 
-        // Create a new story
-        [HttpPost("api/story")]
-        public async Task<IActionResult> CreateStory([FromBody] CreateStoryDto dto)
+        // Create Story
+        [HttpPost]
+        public async Task<IActionResult> CreateStory([FromBody] Story story)
         {
-            if (dto == null || string.IsNullOrEmpty(dto.Name) || string.IsNullOrEmpty(dto.Description) )
+            if (story == null || string.IsNullOrEmpty(story.Name) || string.IsNullOrEmpty(story.Description) || story.ProjectId == 0)
             {
                 return BadRequest("All fields are required.");
             }
-
-            var story = new Story
-            {
-                Name = dto.Name,
-                Description = dto.Description,
-                ProjectId = dto.ProjectId
-            };
 
             try
             {
                 _context.Stories.Add(story);
                 await _context.SaveChangesAsync();
-                return CreatedAtAction(nameof(GetStoryById), new { id = story.Id }, story);
+                return CreatedAtAction(nameof(GetStoryById), new { id = story.Id }, story); // return the created story
             }
             catch (Exception ex)
             {
@@ -45,37 +37,42 @@ namespace BugTrackingSystem.Controllers
             }
         }
 
+        // Get all stories for a project
+        [HttpGet("project/{projectId}")]
+        public async Task<IActionResult> GetStoriesByProject(int projectId)
+        {
+            var stories = await _context.Stories
+                .Where(s => s.ProjectId == projectId)
+                .ToListAsync();
+
+            return Ok(stories);
+        }
+
         // Get story by id
-        [HttpGet("api/story/{id}")]
+        [HttpGet("{id}")]
         public async Task<IActionResult> GetStoryById(int id)
         {
-            var story = await _context.Stories
-                .FirstOrDefaultAsync(s => s.Id == id);
+            var story = await _context.Stories.FindAsync(id);
+            if (story == null)
+            {
+                return NotFound();
+            }
+            return Ok(story);
+        }
 
+        // Delete story
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteStory(int id)
+        {
+            var story = await _context.Stories.FindAsync(id);
             if (story == null)
             {
                 return NotFound();
             }
 
-            return Ok(story);
-        }
-
-        // Get all backlog stories for a project
-        [HttpGet("api/stories/{projectId}")]
-        public async Task<IActionResult> GetBacklog(int projectId)
-        {
-            var stories = await _context.Stories
-                .ToListAsync();
-
-            return Ok(stories);
-        }
-        [HttpGet("api/stories")]
-        public async Task<IActionResult> GetAllStories()
-        {
-            var stories = await _context.Stories
-                .ToListAsync();
-
-            return Ok(stories);
+            _context.Stories.Remove(story);
+            await _context.SaveChangesAsync();
+            return NoContent();
         }
     }
 }

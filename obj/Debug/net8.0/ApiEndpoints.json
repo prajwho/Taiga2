@@ -1,31 +1,5 @@
 [
   {
-    "ContainingType": "BugTrackingSystem.Controllers.InvitationController",
-    "Method": "AcceptInvitation",
-    "RelativePath": "api/acceptInvitation",
-    "HttpMethod": "POST",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "invitationId",
-        "Type": "System.Int32",
-        "IsRequired": false
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "BugTrackingSystem.Controllers.UserController",
-    "Method": "GetAllUsers",
-    "RelativePath": "api/all-users",
-    "HttpMethod": "GET",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [],
-    "ReturnTypes": []
-  },
-  {
     "ContainingType": "BugTrackingSystem.Controllers.AuthController",
     "Method": "IsLoggedIn",
     "RelativePath": "api/auth/isLoggedIn",
@@ -45,7 +19,7 @@
     "Parameters": [
       {
         "Name": "model",
-        "Type": "BugTrackingSystem.Models.LoginDto",
+        "Type": "BugTrackingSystem.Dto.LoginDto",
         "IsRequired": true
       }
     ],
@@ -71,39 +45,7 @@
     "Parameters": [
       {
         "Name": "model",
-        "Type": "BugTrackingSystem.Models.RegisterDto",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "BugTrackingSystem.Controllers.BugController",
-    "Method": "CreateBug",
-    "RelativePath": "api/bugs",
-    "HttpMethod": "POST",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "dto",
-        "Type": "BugTrackingSystem.Models.CreateBugDto",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "BugTrackingSystem.Controllers.BugController",
-    "Method": "GetBugById",
-    "RelativePath": "api/bugs/{id}",
-    "HttpMethod": "GET",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "id",
-        "Type": "System.Int32",
+        "Type": "BugTrackingSystem.Dto.RegisterDto",
         "IsRequired": true
       }
     ],
@@ -117,38 +59,6 @@
     "IsController": true,
     "Order": 0,
     "Parameters": [],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "BugTrackingSystem.Controllers.InvitationController",
-    "Method": "GetPendingInvitations",
-    "RelativePath": "api/getPendingInvitations",
-    "HttpMethod": "GET",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "userId",
-        "Type": "System.String",
-        "IsRequired": false
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "BugTrackingSystem.Controllers.ProjectController",
-    "Method": "CreateProject",
-    "RelativePath": "api/project",
-    "HttpMethod": "POST",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "createProjectDto",
-        "Type": "BugTrackingSystem.Models.CreateProjectDto",
-        "IsRequired": true
-      }
-    ],
     "ReturnTypes": []
   },
   {
@@ -184,32 +94,16 @@
     "ReturnTypes": []
   },
   {
-    "ContainingType": "BugTrackingSystem.Controllers.UserController",
-    "Method": "SearchUsers",
-    "RelativePath": "api/search-users",
-    "HttpMethod": "GET",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "query",
-        "Type": "System.String",
-        "IsRequired": false
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "BugTrackingSystem.Controllers.InvitationController",
-    "Method": "SendInvitation",
-    "RelativePath": "api/sendInvitation",
+    "ContainingType": "BugTrackingSystem.Controllers.ProjectController",
+    "Method": "CreateProject",
+    "RelativePath": "api/projects",
     "HttpMethod": "POST",
     "IsController": true,
     "Order": 0,
     "Parameters": [
       {
-        "Name": "model",
-        "Type": "BugTrackingSystem.Models.ProjectInvitationDto",
+        "Name": "createProjectDto",
+        "Type": "BugTrackingSystem.Dto.CreateProjectDto",
         "IsRequired": true
       }
     ],
@@ -217,15 +111,15 @@
   },
   {
     "ContainingType": "BugTrackingSystem.Controllers.SprintController",
-    "Method": "CreateSprint",
-    "RelativePath": "api/sprint",
-    "HttpMethod": "POST",
+    "Method": "DeleteSprint",
+    "RelativePath": "api/sprint/{id}",
+    "HttpMethod": "DELETE",
     "IsController": true,
     "Order": 0,
     "Parameters": [
       {
-        "Name": "dto",
-        "Type": "BugTrackingSystem.Models.CreateSprintDto",
+        "Name": "id",
+        "Type": "System.Int32",
         "IsRequired": true
       }
     ],
@@ -265,51 +159,15 @@
   },
   {
     "ContainingType": "BugTrackingSystem.Controllers.SprintController",
-    "Method": "GetAllSprints",
+    "Method": "CreateSprint",
     "RelativePath": "api/sprints",
-    "HttpMethod": "GET",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "BugTrackingSystem.Controllers.StoryController",
-    "Method": "GetAllStories",
-    "RelativePath": "api/stories",
-    "HttpMethod": "GET",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "BugTrackingSystem.Controllers.StoryController",
-    "Method": "GetBacklog",
-    "RelativePath": "api/stories/{projectId}",
-    "HttpMethod": "GET",
+    "HttpMethod": "POST",
     "IsController": true,
     "Order": 0,
     "Parameters": [
       {
-        "Name": "projectId",
-        "Type": "System.Int32",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "BugTrackingSystem.Controllers.BugController",
-    "Method": "GetBugsByStory",
-    "RelativePath": "api/stories/{storyId}/bugs",
-    "HttpMethod": "GET",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "storyId",
-        "Type": "System.Int32",
+        "Name": "dto",
+        "Type": "BugTrackingSystem.Dto.CreateSprintDto",
         "IsRequired": true
       }
     ],
@@ -318,14 +176,14 @@
   {
     "ContainingType": "BugTrackingSystem.Controllers.StoryController",
     "Method": "CreateStory",
-    "RelativePath": "api/story",
+    "RelativePath": "api/Story",
     "HttpMethod": "POST",
     "IsController": true,
     "Order": 0,
     "Parameters": [
       {
-        "Name": "dto",
-        "Type": "BugTrackingSystem.Models.CreateStoryDto",
+        "Name": "story",
+        "Type": "BugTrackingSystem.Models.Story",
         "IsRequired": true
       }
     ],
@@ -334,13 +192,45 @@
   {
     "ContainingType": "BugTrackingSystem.Controllers.StoryController",
     "Method": "GetStoryById",
-    "RelativePath": "api/story/{id}",
+    "RelativePath": "api/Story/{id}",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
     "Parameters": [
       {
         "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "BugTrackingSystem.Controllers.StoryController",
+    "Method": "DeleteStory",
+    "RelativePath": "api/Story/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "BugTrackingSystem.Controllers.StoryController",
+    "Method": "GetStoriesByProject",
+    "RelativePath": "api/Story/project/{projectId}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "projectId",
         "Type": "System.Int32",
         "IsRequired": true
       }
